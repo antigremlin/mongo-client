@@ -1,0 +1,29 @@
+codec(package, element) ::= <<
+package <package>;
+
+import org.bson.*;
+import org.bson.codecs.*;
+
+class <element.simpleName>_codec implements Codec\<<element.simpleName>\> {
+    public void encode(BsonWriter bsonWriter, <element.simpleName> entity, EncoderContext encoderContext) {
+        bsonWriter.writeStartDocument();
+        bsonWriter.writeEndDocument();
+    }
+
+    public <element.simpleName> decode(BsonReader bsonReader, DecoderContext decoderContext) {
+        bsonReader.readStartDocument();
+        while (bsonReader.readBsonType() != BsonType.END_OF_DOCUMENT) {
+            switch (bsonReader.readName()) {
+                default:
+                    bsonReader.skipValue();
+            }
+        }
+        bsonReader.readEndDocument();
+        return null;
+    }
+
+    public Class\<<element.simpleName>\> getEncoderClass() {
+        return <element.simpleName>.class;
+    }
+}
+>>
